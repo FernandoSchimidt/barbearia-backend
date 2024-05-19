@@ -1,8 +1,7 @@
 package br.com.fernandoschimidt.barbearia.entity;
 
-import br.com.fernandoschimidt.barbearia.dto.UsuarioDTO;
+import br.com.fernandoschimidt.barbearia.dto.RecursoDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
@@ -10,36 +9,36 @@ import org.springframework.beans.BeanUtils;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TBL_USUARIO")
+@Table(name = "TBL_RECURSO")
 @Getter
 @Setter
-public class UsuarioEntity {
-
+public class RecursoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false, unique = true)
-    private String login;
     @Column(nullable = false)
-    private String senha;
-    @Column(nullable = false)
-    private String email;
+    private String chave;
 
-    public UsuarioEntity(UsuarioDTO usuario) {
-        BeanUtils.copyProperties(usuario, this);
+    public RecursoEntity(RecursoDTO recursoDTO) {
+        BeanUtils.copyProperties(recursoDTO, this);
     }
 
-    public UsuarioEntity() {
+    public RecursoEntity(Long id, String nome, String chave) {
+        this.id = id;
+        this.nome = nome;
+        this.chave = chave;
+    }
 
+    public RecursoEntity() {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UsuarioEntity that = (UsuarioEntity) o;
+        RecursoEntity that = (RecursoEntity) o;
         return Objects.equals(id, that.id);
     }
 
