@@ -2,7 +2,9 @@ package br.com.fernandoschimidt.barbearia.controller;
 
 import br.com.fernandoschimidt.barbearia.dto.UsuarioDTO;
 import br.com.fernandoschimidt.barbearia.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +14,9 @@ import java.util.List;
 public class UsuarioController {
 
     private final UsuarioService service;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UsuarioController(UsuarioService service) {
         this.service = service;
@@ -31,12 +36,17 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> create(@RequestBody UsuarioDTO usuario) {
+        var passwordHash = passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(passwordHash);
         UsuarioDTO usuarioDTO = service.create(usuario);
+
         return ResponseEntity.ok().body(usuarioDTO);
     }
 
     @PutMapping
     public ResponseEntity<UsuarioDTO> edit(@RequestBody UsuarioDTO usuario) {
+        var passwordHash = passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(passwordHash);
         UsuarioDTO usuarioDTO = service.edit(usuario);
         return ResponseEntity.ok().body(usuarioDTO);
     }
