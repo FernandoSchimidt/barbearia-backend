@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/recursos")
+@RequestMapping(value = "/api/v1/admin/recursos")
 public class RecursoController {
 
     private final RecursoService service;

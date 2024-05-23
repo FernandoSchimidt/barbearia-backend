@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/usuarios")
+@RequestMapping(value = "/api/v1/admin/usuarios")
 public class UsuarioController {
 
     private final UsuarioService service;
@@ -34,14 +34,7 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuarioDTO);
     }
 
-    @PostMapping
-    public ResponseEntity<UsuarioDTO> create(@RequestBody UsuarioDTO usuario) {
-        var passwordHash = passwordEncoder.encode(usuario.getSenha());
-        usuario.setSenha(passwordHash);
-        UsuarioDTO usuarioDTO = service.create(usuario);
 
-        return ResponseEntity.ok().body(usuarioDTO);
-    }
 
     @PutMapping
     public ResponseEntity<UsuarioDTO> edit(@RequestBody UsuarioDTO usuario) {

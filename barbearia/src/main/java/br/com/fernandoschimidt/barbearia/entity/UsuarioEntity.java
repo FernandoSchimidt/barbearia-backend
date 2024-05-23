@@ -21,7 +21,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class UsuarioEntity implements UserDetails {
 
     @Id
@@ -37,6 +36,14 @@ public class UsuarioEntity implements UserDetails {
     private String email;
 
     private RoleEnum role;
+
+    public UsuarioEntity(String nome, String login, String senha, String email, RoleEnum role) {
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.email = email;
+        this.role = role;
+    }
 
     public UsuarioEntity(UsuarioDTO usuario) {
         BeanUtils.copyProperties(usuario, this);

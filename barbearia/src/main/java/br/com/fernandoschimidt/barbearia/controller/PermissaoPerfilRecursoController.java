@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/permissao-perfil")
+@RequestMapping(value = "/api/v1/admin/permissao-perfil")
 public class PermissaoPerfilRecursoController {
     private final PermissaoPerfilRecursoService service;
 

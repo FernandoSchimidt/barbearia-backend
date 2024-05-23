@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/perfis")
+@RequestMapping(value = "/api/v1/admin/perfis")
 public class PerfilController {
 
     private final PerfiService service;
