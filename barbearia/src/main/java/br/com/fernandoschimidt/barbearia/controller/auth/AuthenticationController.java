@@ -1,7 +1,9 @@
 package br.com.fernandoschimidt.barbearia.controller.auth;
 
 import br.com.fernandoschimidt.barbearia.dto.AuthDTO;
+import br.com.fernandoschimidt.barbearia.dto.ResponseDTO;
 import br.com.fernandoschimidt.barbearia.dto.UsuarioDTO;
+import br.com.fernandoschimidt.barbearia.entity.UsuarioEntity;
 import br.com.fernandoschimidt.barbearia.service.UsuarioService;
 import br.com.fernandoschimidt.barbearia.service.auth.AuthenticatonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,24 @@ public class AuthenticationController {
     @Autowired
     private UsuarioService service;
 
+
+    //    @PostMapping("/login")
+//    @ResponseStatus(HttpStatus.OK)
+//    public String login(@RequestBody AuthDTO data) {
+//
+//        var userAuthenticationToken = new UsernamePasswordAuthenticationToken(data.login(), data.senha());
+//        authenticationManager.authenticate(userAuthenticationToken);
+//
+//        return authenticatonService.getToken(data);
+//    }
     @PostMapping("/login")
-    @ResponseStatus(HttpStatus.OK)
-    public String login(@RequestBody AuthDTO data) {
-
-        var userAuthenticationToken = new UsernamePasswordAuthenticationToken(data.login(), data.senha());
-        authenticationManager.authenticate(userAuthenticationToken);
-
-        return authenticatonService.getToken(data);
+    public ResponseEntity login(@RequestBody AuthDTO body) {
+        UsuarioEntity usuario = service.findByLogin(body.login());
+        if (passwordEncoder.matches(body.senha(), usuario.getPassword())) {
+            String token = this.authenticatonService.getToken(body);
+            return ResponseEntity.ok(new ResponseDTO(usuario.getEmail(), usuario.getNome(), token, usuario.getRole()));
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/register")

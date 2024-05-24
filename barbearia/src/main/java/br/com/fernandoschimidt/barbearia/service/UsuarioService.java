@@ -42,4 +42,8 @@ public class UsuarioService {
 
 
     }
+
+    public UsuarioEntity findByLogin(String login) {
+        return repository.findByLogin(login);
+    }
 }
