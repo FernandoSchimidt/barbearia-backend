@@ -27,16 +27,6 @@ public class AuthenticationController {
     @Autowired
     private UsuarioService service;
 
-
-    //    @PostMapping("/login")
-//    @ResponseStatus(HttpStatus.OK)
-//    public String login(@RequestBody AuthDTO data) {
-//
-//        var userAuthenticationToken = new UsernamePasswordAuthenticationToken(data.login(), data.senha());
-//        authenticationManager.authenticate(userAuthenticationToken);
-//
-//        return authenticatonService.getToken(data);
-//    }
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthDTO body) {
         UsuarioEntity usuario = service.findByLogin(body.login());

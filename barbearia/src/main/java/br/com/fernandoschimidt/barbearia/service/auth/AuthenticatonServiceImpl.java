@@ -53,7 +53,7 @@ public class AuthenticatonServiceImpl implements AuthenticationService {
     }
 
     private Instant generateTokenExpiration() {
-        return LocalDateTime.now().plusMinutes(8).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(12).toInstant(ZoneOffset.of("-03:00"));
     }
 
     public String validateTokenJwt(String token) {

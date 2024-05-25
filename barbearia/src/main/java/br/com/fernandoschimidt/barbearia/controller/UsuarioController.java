@@ -14,10 +14,8 @@ import java.util.List;
 public class UsuarioController {
 
     private final UsuarioService service;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     public UsuarioController(UsuarioService service) {
         this.service = service;
     }
@@ -27,14 +25,11 @@ public class UsuarioController {
         List<UsuarioDTO> usuarioDTOS = service.findAll();
         return ResponseEntity.ok().body(usuarioDTOS);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO> findById(@PathVariable("id") Long id) {
         UsuarioDTO usuarioDTO = service.findById(id);
         return ResponseEntity.ok().body(usuarioDTO);
     }
-
-
 
     @PutMapping
     public ResponseEntity<UsuarioDTO> edit(@RequestBody UsuarioDTO usuario) {
